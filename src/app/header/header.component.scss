@@ -1,0 +1,12 @@
+:host ::ng-deep .mx-5{
+    margin-right: 20rem !important;
+}
+
+:host ::ng-deep .px-1 {
+    padding-right: 15rem !important;
+}
+
+::placeholder {
+    color: blueviolet;
+    padding-right: 100%;
+  }
