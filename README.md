@@ -1,3 +1,28 @@
+# Environment of this project
+
+Angular CLI: 11.2.19
+Node: 16.9.0
+OS: win32 x64
+
+Angular: 11.2.14
+... animations, common, compiler, compiler-cli, core, forms
+... platform-browser, platform-browser-dynamic, router
+Ivy Workspace: Yes
+
+Package                         Version
+---------------------------------------------------------
+@angular-devkit/architect       0.1102.19
+@angular-devkit/build-angular   0.1102.19
+@angular-devkit/core            11.2.19
+@angular-devkit/schematics      11.2.19
+@angular/cdk                    11.2.13
+@angular/cli                    11.2.19
+@angular/material               11.2.13
+@schematics/angular             11.2.19
+@schematics/update              0.1102.19
+rxjs                            6.6.7
+typescript                      4.1.6
+
 # Material
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.19.
