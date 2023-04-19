@@ -1,2 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css"; 
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: black;
+    border-radius: 5px;
+
+}

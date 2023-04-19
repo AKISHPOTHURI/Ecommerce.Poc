@@ -11,6 +11,7 @@ import { ProductService } from '../services/product.service';
 export class SellerProductUpdateComponent implements OnInit {
   public updateProductForm:FormGroup
   public productData:any
+  public productMessage: undefined | string;
   constructor(private fb:FormBuilder, private route:ActivatedRoute,private product:ProductService, private router:Router) {
     this.updateProductForm=this.fb.group({
       productName:'',
@@ -57,8 +58,15 @@ export class SellerProductUpdateComponent implements OnInit {
     let productId = this.route.snapshot.paramMap.get('id')
     productId && this.product.updateProduct(productId,data).subscribe((data) => {
      this.productData=data
-     this.router.navigate(['/sellerhome'])
-    })
-
+     if (this.productData){
+      this.productMessage="Product updated";
+     }
+    });
+    setTimeout(()=>{
+      this.productMessage = undefined;
+    },1500);
+    setTimeout(() => {
+      this.router.navigate(['/sellerhome'])
+    },1700);
   }
 }

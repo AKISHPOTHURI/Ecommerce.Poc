@@ -25,7 +25,7 @@
   "products": [
     {
       "productName": "realme GT Neo 3t",
-      "productPrice": "26000",
+      "productPrice": "27000",
       "productColor": "black",
       "productCategory": "Electronics",
       "productDescription": "This is the good phone",
@@ -34,7 +34,7 @@
     },
     {
       "productName": "DEll vastro",
-      "productPrice": "55000",
+      "productPrice": "55500",
       "productColor": "Black",
       "productCategory": "Laptop",
       "productDescription": "Core i3, Ram 8 gb, 512 ssd.",
@@ -52,7 +52,7 @@
     },
     {
       "productName": "Bag ",
-      "productPrice": "700",
+      "productPrice": "880",
       "productColor": "brown ",
       "productCategory": "Bags",
       "productDescription": "leather bag",

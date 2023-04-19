@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
@@ -18,6 +19,7 @@ import { SellerLoginComponent } from './seller-login/seller-login.component';
 import { SellerHomeComponent } from './seller-home/seller-home.component';
 import { SellerAddProductComponent } from './seller-add-product/seller-add-product.component';
 import { SellerProductUpdateComponent } from './seller-product-update/seller-product-update.component';
+
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { SellerProductUpdateComponent } from './seller-product-update/seller-pro
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
+    NgbModule,
     HttpClientModule,
     MatPaginatorModule,
     MatTableModule,

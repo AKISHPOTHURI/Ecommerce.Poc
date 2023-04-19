@@ -1,6 +1,6 @@
 <div class="container">
     <h2>Update Products</h2>
-    <!-- <p class="text-success text-center">{{addProductMessage}}</p> -->
+    <p class="text-success text-center">{{productMessage}}</p>
     <form [formGroup]="updateProductForm" (ngSubmit)="submit(updateProductForm.value)">
         <div class="form-group my-1">
             <input type="text" formControlName="productName" placeholder="Enter Product Name" class="form-control" >
