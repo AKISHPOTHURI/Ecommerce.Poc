@@ -10,3 +10,27 @@
     color: blueviolet;
     padding-right: 100%;
   }
+
+  .suggested-result{
+    position: absolute;
+    top: 40px;
+    z-index: 10;
+    display: list-item !important;
+    border: 1px solid #ddd;
+    background-color: #6c6969;
+    border-radius: 5px;
+    width: 300px;
+  }
+
+  .suggested-result li {
+    padding:5px;
+    border-bottom: 1px solid #ddd;
+  }
+  .suggested-result li a{
+    cursor: pointer;
+    color: rgb(246, 244, 248);
+  }
+
+  .suggested-result {
+    list-style-type: none;
+  }
