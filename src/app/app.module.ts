@@ -14,11 +14,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
-import { LoginComponent } from './login/login.component';
 import { SellerLoginComponent } from './seller-login/seller-login.component';
 import { SellerHomeComponent } from './seller-home/seller-home.component';
 import { SellerAddProductComponent } from './seller-add-product/seller-add-product.component';
 import { SellerProductUpdateComponent } from './seller-product-update/seller-product-update.component';
+import { SearchComponent } from './search/search.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { UserAuthComponent } from './user-auth/user-auth.component';
 
 
 @NgModule({
@@ -26,11 +28,13 @@ import { SellerProductUpdateComponent } from './seller-product-update/seller-pro
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    LoginComponent,
     SellerLoginComponent,
     SellerHomeComponent,
     SellerAddProductComponent,
     SellerProductUpdateComponent,
+    SearchComponent,
+    ProductDetailsComponent,
+    UserAuthComponent,
     
   ],
   imports: [

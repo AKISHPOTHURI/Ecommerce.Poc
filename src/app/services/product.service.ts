@@ -22,7 +22,7 @@ export class ProductService {
   }
 
   getProduct(id:string){
-    return this.http.get(`http://localhost:3000/products/${id}`)
+    return this.http.get<product>(`http://localhost:3000/products/${id}`)
   }
   updateProduct(id:string,data:product) {
     return this.http.put(`http://localhost:3000/products/${id}`,data)

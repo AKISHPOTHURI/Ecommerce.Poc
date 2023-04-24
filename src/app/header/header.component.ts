@@ -11,8 +11,9 @@ import { product } from '../data-types';
 })
 export class HeaderComponent implements OnInit {
   menuType: string = 'default';
-  sellerName:string = 'hi';
+  sellerName:string = '';
   searchResult: undefined | product[];
+  userName:string = "";
 
   constructor(private router:Router, private product:ProductService) { }
 
@@ -27,6 +28,11 @@ export class HeaderComponent implements OnInit {
             let sellerData =sellerStore && JSON.parse(sellerStore)[0];
             this.sellerName = sellerData.userName
           }
+        }else if (localStorage.getItem('user')) {
+          let userStore = localStorage.getItem('user');
+          let userData = userStore && JSON.parse(userStore);
+          this.userName = userData.userName;
+          this.menuType = 'user';
         }else{
           console.warn("outside seller")
           this.menuType='default'
@@ -38,6 +44,11 @@ export class HeaderComponent implements OnInit {
   logout(): void {
     localStorage.removeItem('seller');
     this.router.navigate(["/"])
+  }
+
+  userLogOut(): void {
+    localStorage.removeItem('user');
+    this.router.navigate(['/userauth'])
   }
 
   searchProduct(query:KeyboardEvent) {
@@ -52,5 +63,13 @@ export class HeaderComponent implements OnInit {
 
   hideSearch(){
     this.searchResult = undefined;
+  }
+
+  redirectToDetails(id:number){
+    this.router.navigate(['/details/'+id])
+  }
+
+  search(query:string) {
+    this.router.navigate([`/search/${query}`])
   }
 }

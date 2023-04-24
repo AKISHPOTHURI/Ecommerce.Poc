@@ -1,0 +1,16 @@
+.container {
+    margin-top: 50px;
+}
+
+.search-item {
+    border-top: 1px solid #0e0d0ddd;
+    border-bottom: 1px solid black !important;
+}
+
+:host ::ng-deep .row {
+    border-top: 1px solid rgb(209 213 219) !important;
+}
+
+:host ::ng-deep .col-sm-6 {
+    margin-left: 6rem !important;
+}
