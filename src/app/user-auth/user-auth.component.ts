@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { FormBuilder } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { signUp } from '../data-types';
+import { login, signUp } from '../data-types';
 import { Router } from '@angular/router';
+import { passwordValid } from '../validators/passwordMatch';
 
 @Component({
   selector: 'app-user-auth',
@@ -11,42 +12,41 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-auth.component.scss']
 })
 export class UserAuthComponent implements OnInit {
+  // [x: string]: any;
 
+  showLogin:boolean = true;
   constructor(private user:UserService, private fb:FormBuilder, private http:HttpClient, private router:Router) { }
 
   ngOnInit(): void {
     this.user.userReload();
   }
 
-  signUpForm = this.fb.group({
-    userName:[''],
-    email:[''],
-    password:[''],
-    confirmPassword:['']
+  userSignUpForm = this.fb.group({
+    userName:['', [Validators.required]],
+    email:['', [Validators.required, Validators.pattern(/^[\w]{1,}[\w.+-]{0,}@[\w-]{1,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$/)]],
+    password:['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+    confirmPassword:['', passwordValid]
     });
 
   loginForm = this.fb.group({
-    email:[''],
-    password:['']
+    email:['', [Validators.required]],
+    password:['', [Validators.required]]
   });
 
-    // openLogin(){
-    //   this.showLogin = true;
-    // }
+    openLogin(){
+      this.showLogin = true;
+    }
 
-    // openSignUp(){
-    //   this.showLogin = false;
-    // }
+    openSignUp(){
+      this.showLogin = false;
+    }
 
     userSignUp(user:signUp):void{
-      this.http.post("http://localhost:3000/users",user,{observe:'response'})
-      .subscribe((result) => {
-        console.warn(result)
-        if (result) {
-          localStorage.setItem('user', JSON.stringify(result.body));
-          this.router.navigate(['/'])
-        }
-      })
+      this.user.userSignUp(user);
+    }
+
+    userLogin(user:login) {
+      this.user.userLogin(user);
     }
 
     // login(data:login):void{
@@ -58,6 +58,9 @@ export class UserAuthComponent implements OnInit {
     //       this.authError = 'Email or password is wrong'
     //     }
     //   });
+    // }
+    // get f(){
+    //   return this.openSignUp;
     // }
 
 }

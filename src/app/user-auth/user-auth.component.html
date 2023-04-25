@@ -1,40 +1,57 @@
 <div>
-    <div class="container" >
+    <div *ngIf="!showLogin" class="container" >
         <h2>User SignUp</h2>
-        <form [formGroup]="signUpForm" (ngSubmit)="userSignUp(signUpForm.value)">
+        <form [formGroup]="userSignUpForm" (ngSubmit)="userSignUp(userSignUpForm.value)">
             <div class="form-group">
                 <label>User Name</label>
-                <input type="text" formControlName="userName" placeholder="Enter your name" class="form-control">
+                <input [class.is-invalid]="userSignUpForm.get('userName')?.invalid && userSignUpForm.get('userName')?.touched" type="text" formControlName="userName" placeholder="Enter your name" class="form-control">
+                <div *ngIf="userSignUpForm.get('userName')?.invalid && userSignUpForm.get('userName')?.touched || userSignUpForm.get('userName')?.dirty ">
+                    <small *ngIf="userSignUpForm.get('userName')?.invalid" class="text-danger">user name is required</small>
+                </div>
+                
             </div>
 
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" formControlName="email" placeholder="Enter your email" class="form-control">
+                <input [class.is-invalid]="userSignUpForm.get('email')?.invalid && userSignUpForm.get('email')?.touched" type="email" formControlName="email" placeholder="Enter your email" class="form-control">
+                <div *ngIf="(userSignUpForm.get('email')?.invalid && userSignUpForm.get('email')?.touched) || userSignUpForm.get('email')?.dirty">
+                    <small *ngIf="userSignUpForm.get('email')?.errors?.required" class="text-danger">email is required</small>
+                    <small *ngIf="userSignUpForm.get('email')?.errors?.pattern" class="text-danger">Please provide a valid email address</small>
+                </div>
             </div>
 
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" formControlName="password" placeholder="Enter password" class="form-control">
+                <input [class.is-invalid]="userSignUpForm.get('password')?.invalid && userSignUpForm.get('password')?.touched" type="password" formControlName="password" placeholder="Enter password" class="form-control">
+                <div *ngIf="userSignUpForm.get('password')?.invalid && userSignUpForm.get('password')?.touched  || userSignUpForm.get('password')?.dirty">
+                    <small *ngIf="userSignUpForm.get('password')?.errors?.required" class="text-danger">password required</small>
+                    <small *ngIf="userSignUpForm.get('password')?.errors?.pattern" class="text-danger">password should be 8 charasters combination of uppercase,lowercase,number and special charaster</small>
+                    <small *ngIf="userSignUpForm.get('password')?.errors?.minLength" class="text-danger">minimum 8 charasters</small>
+                </div>
             </div>
 
             <div class="form-group">
                 <label>Confirm Password</label>
-                <input type="text" formControlName="confirmPassword" placeholder="Confirmation of password" class="form-control">
+                <input [class.is-invalid]="userSignUpForm.get('confirmPassword')?.errors?.mismatch" type="text" formControlName="confirmPassword" placeholder="Confirmation of password" class="form-control">
+                <div *ngIf="userSignUpForm.get('confirmPassword')?.errors?.mismatch">
+                    <!-- <small *ngIf="userSignUpForm.get('confirmPassword')?.errors?.required" class="text-danger">confirmPassword required</small> -->
+                    <small *ngIf="userSignUpForm.get('confirmPassword')?.errors?.mismatch" class="text-danger">Password Mismatch</small>
+                </div>
             </div>
-            <a>Have an account? click on SignIn</a>
+            <a>Have an account? click on Login</a>
             <div>
                 <button class="btn btn-primary my-1">SignUp</button>
-                <button class="btn btn-primary my-1 ms-3">SignIn</button>
+                <button class="btn btn-primary my-1 ms-3" (click)="openLogin()">Login</button>
             </div>
             
         </form>
     </div>
     <!-- Login Form -->
 
-    <!-- <div class="container" *ngIf="showLogin">
-        <h2>Seller Login</h2>
-        <p class="text-danger">{{authError}}</p>
-        <form [formGroup]="signUpForm" (ngSubmit)="login(signUpForm.value)">
+    <div *ngIf="showLogin" class="container">
+        <h2>User Login</h2>
+        <p class="text-danger"></p>
+        <form [formGroup]="loginForm" (ngSubmit)="userLogin(loginForm.value)">
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" formControlName="email" placeholder="Enter your email" class="form-control">
@@ -47,9 +64,9 @@
 
             <a>Don't have an account? Click on SignUp</a>
             <div>
-                <button class="btn btn-primary my-1">SignIn</button> 
+                <button class="btn btn-primary my-1">Login</button> 
                 <button class="btn btn-primary my-1 ms-3" (click)="openSignUp()">SignUp</button>  
             </div>
         </form>
-    </div> -->
+    </div> 
 </div>

@@ -1,7 +1,9 @@
 export interface signUp{
     name:string,
+    email:string,
     password:string,
-    email:string
+    confirmPassword:string
+    
 }
 
 export interface login {

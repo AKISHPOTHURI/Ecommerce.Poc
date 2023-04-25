@@ -20,6 +20,13 @@
       "password": "123",
       "confirmPassword": "123",
       "id": 3
+    },
+    {
+      "userName": "",
+      "email": "",
+      "password": "",
+      "confirmPassword": "",
+      "id": 4
     }
   ],
   "products": [
@@ -92,6 +99,13 @@
       "password": "abc@123",
       "confirmPassword": "abc@123",
       "id": 2
+    },
+    {
+      "userName": "",
+      "email": "",
+      "password": "A12345678a@",
+      "confirmPassword": ".get('confirmPassword')",
+      "id": 3
     }
   ]
 }
