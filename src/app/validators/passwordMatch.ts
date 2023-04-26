@@ -1,11 +1,11 @@
-import { AbstractControl } from "@angular/forms"
+import { AbstractControl, FormControl } from "@angular/forms"
 
-export function passwordValid(control: AbstractControl): {[key: string]: boolean} | null {
+export const passwordValid=(control: AbstractControl): {[key: string]: boolean} | null => {
     
-    let password:any = control.get(['password'])
-    let confirmPassword:any = control.get('confirmPassword')?.value;
-    console.log(password);
+    const confirmPassword = control.get(['confirmPassword'])?.value
+    const password = control.get(['password'])?.value
 
+    console.log(password)
     console.log(confirmPassword);
 
  

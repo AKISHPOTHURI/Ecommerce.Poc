@@ -12,7 +12,6 @@ import { passwordValid } from '../validators/passwordMatch';
   styleUrls: ['./user-auth.component.scss']
 })
 export class UserAuthComponent implements OnInit {
-  // [x: string]: any;
 
   showLogin:boolean = true;
   constructor(private user:UserService, private fb:FormBuilder, private http:HttpClient, private router:Router) { }
@@ -25,8 +24,8 @@ export class UserAuthComponent implements OnInit {
     userName:['', [Validators.required]],
     email:['', [Validators.required, Validators.pattern(/^[\w]{1,}[\w.+-]{0,}@[\w-]{1,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$/)]],
     password:['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
-    confirmPassword:['', passwordValid]
-    });
+    confirmPassword:['',[Validators.required] ]
+    },{validator:passwordValid});
 
   loginForm = this.fb.group({
     email:['', [Validators.required]],
@@ -48,19 +47,5 @@ export class UserAuthComponent implements OnInit {
     userLogin(user:login) {
       this.user.userLogin(user);
     }
-
-    // login(data:login):void{
-    //   this.authError = '';
-    //   // console.warn(data)
-    //   this.user.userLogin(data);
-    //   this.user.isLoginError.subscribe((isError) => {
-    //     if (isError) {
-    //       this.authError = 'Email or password is wrong'
-    //     }
-    //   });
-    // }
-    // get f(){
-    //   return this.openSignUp;
-    // }
 
 }
