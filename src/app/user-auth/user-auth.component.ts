@@ -24,7 +24,7 @@ export class UserAuthComponent implements OnInit {
     userName:['', [Validators.required]],
     email:['', [Validators.required, Validators.pattern(/^[\w]{1,}[\w.+-]{0,}@[\w-]{1,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$/)]],
     password:['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
-    confirmPassword:['',[Validators.required] ]
+    confirmPassword:['',[Validators.required]]
     },{validator:passwordValid});
 
   loginForm = this.fb.group({
