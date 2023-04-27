@@ -19,5 +19,6 @@ export interface product{
     productDescription:string,
     productImageUrl:string,
     id:number,
-    productId:number
+    productId:number,
+    quantity: undefined | number
 }

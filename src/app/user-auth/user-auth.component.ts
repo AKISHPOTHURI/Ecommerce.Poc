@@ -14,6 +14,7 @@ import { passwordValid } from '../validators/passwordMatch';
 export class UserAuthComponent implements OnInit {
 
   showLogin:boolean = true;
+  authError:string="";
   constructor(private user:UserService, private fb:FormBuilder, private http:HttpClient, private router:Router) { }
 
   ngOnInit(): void {
@@ -28,8 +29,8 @@ export class UserAuthComponent implements OnInit {
     },{validator:passwordValid});
 
   loginForm = this.fb.group({
-    email:['', [Validators.required]],
-    password:['', [Validators.required]]
+    email:['', [Validators.required, Validators.pattern(/^[\w]{1,}[\w.+-]{0,}@[\w-]{1,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$/)]],
+    password:['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]]
   });
 
     openLogin(){
@@ -46,6 +47,11 @@ export class UserAuthComponent implements OnInit {
 
     userLogin(user:login) {
       this.user.userLogin(user);
+      this.user.invalidUserAuth.subscribe((result) => {
+        if (result) {
+          this.authError= "Invalid Email Id or Password";
+        }
+      })
     }
 
 }

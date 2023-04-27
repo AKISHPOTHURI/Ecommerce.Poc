@@ -25,22 +25,21 @@
                 <input [class.is-invalid]="userSignUpForm.get('password')?.invalid && userSignUpForm.get('password')?.touched" type="password" formControlName="password" placeholder="Enter password" class="form-control">
                 <div *ngIf="userSignUpForm.get('password')?.invalid && userSignUpForm.get('password')?.touched  || userSignUpForm.get('password')?.dirty">
                     <small *ngIf="userSignUpForm.get('password')?.errors?.required" class="text-danger">password required</small>
-                    <small *ngIf="userSignUpForm.get('password')?.errors?.pattern" class="text-danger">password should be 8 charasters combination of uppercase,lowercase,number and special charaster</small>
-                    <small *ngIf="userSignUpForm.get('password')?.errors?.minLength" class="text-danger">minimum 8 charasters</small>
+                    <small *ngIf="userSignUpForm.get('password')?.errors?.pattern" class="text-danger">password should be minimum 8 charasters combination of uppercase,lowercase,number and special charaster</small>
                 </div>
             </div>
 
             <div class="form-group">
                 <label>Confirm Password</label>
-                <input [class.is-invalid]="userSignUpForm.get('confirmPassword')?.invalid && userSignUpForm.get('confirmPassword')?.touched && userSignUpForm.get('confirmPassword')?.errors?.mismatch" type="text" formControlName="confirmPassword" placeholder="Confirmation of password" class="form-control">
-                <div *ngIf="userSignUpForm.get('confirmPassword')?.invalid && userSignUpForm.get('confirmPassword')?.touched || userSignUpForm.get('confirmPassword')?.dirty && userSignUpForm.get('confirmPassword')?.errors?.mismatch">
-                    <small *ngIf="userSignUpForm.get('confirmPassword')?.errors?.required" class="text-danger">confirmPassword required</small>
-                    <small *ngIf="userSignUpForm.get('confirmPassword')?.errors?.mismatch" class="text-danger">Password Mismatch</small>
+                <input [class.is-invalid]="userSignUpForm.get('confirmPassword')?.invalid && userSignUpForm.get('confirmPassword')?.touched || userSignUpForm.get('confirmPassword')?.dirty" type="text" formControlName="confirmPassword" placeholder="Confirmation of password" class="form-control">
+                <div *ngIf="userSignUpForm.get('confirmPassword')?.invalid && userSignUpForm.get('confirmPassword')?.touched || userSignUpForm.get('confirmPassword')?.dirty && userSignUpForm.hasError">
+                    <small *ngIf="userSignUpForm.get('confirmPassword')?.errors?.required" class="text-danger">Confirm Password required</small>
+                    <small *ngIf="userSignUpForm.hasError('mismatch')" class="text-danger"> Password Mismatch</small>
                 </div>
             </div>
             <a>Have an account? click on Login</a>
             <div>
-                <button class="btn btn-primary my-1">SignUp</button>
+                <button [disabled]="userSignUpForm.invalid" class="btn btn-primary my-1">SignUp</button>
                 <button class="btn btn-primary my-1 ms-3" (click)="openLogin()">Login</button>
             </div>
             
@@ -50,21 +49,29 @@
 
     <div *ngIf="showLogin" class="container">
         <h2>User Login</h2>
-        <p class="text-danger"></p>
+        <p class="text-danger">{{authError}}</p>
         <form [formGroup]="loginForm" (ngSubmit)="userLogin(loginForm.value)">
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" formControlName="email" placeholder="Enter your email" class="form-control">
+                <input [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" type="email" formControlName="email" placeholder="Enter your email" class="form-control">
+                <div *ngIf="(loginForm.get('email')?.invalid && loginForm.get('email')?.touched) || loginForm.get('email')?.dirty">
+                    <small *ngIf="loginForm.get('email')?.errors?.required" class="text-danger">email is required</small>
+                    <small *ngIf="loginForm.get('email')?.errors?.pattern" class="text-danger">Please provide a valid email address</small>
+                </div>
             </div>
 
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" formControlName="password" placeholder="Enter password" class="form-control">
+                <input [class.is-invalid]="userSignUpForm.get('password')?.invalid && userSignUpForm.get('password')?.touched" type="password" formControlName="password" placeholder="Enter password" class="form-control">
+                <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched  || loginForm.get('password')?.dirty">
+                    <small *ngIf="loginForm.get('password')?.errors?.required" class="text-danger">password required</small>
+                    <small *ngIf="loginForm.get('password')?.errors?.pattern" class="text-danger">password should be minimum 8 charasters combination of uppercase,lowercase,number and special charaster</small>
+                </div>
             </div>
 
             <a>Don't have an account? Click on SignUp</a>
             <div>
-                <button class="btn btn-primary my-1">Login</button> 
+                <button  [disabled]="loginForm.invalid" class="btn btn-primary my-1">Login</button> 
                 <button class="btn btn-primary my-1 ms-3" (click)="openSignUp()">SignUp</button>  
             </div>
         </form>

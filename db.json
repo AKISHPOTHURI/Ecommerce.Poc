@@ -99,6 +99,20 @@
       "password": "abc@123",
       "confirmPassword": "abc@123",
       "id": 2
+    },
+    {
+      "userName": "Akash",
+      "email": "akash@gmail.com",
+      "password": "A12341234a@",
+      "confirmPassword": "A12341234a@",
+      "id": 3
+    },
+    {
+      "userName": "Harish",
+      "email": "harish@gmail.com",
+      "password": "H12341234h@",
+      "confirmPassword": "H12341234h@",
+      "id": 4
     }
   ]
 }
