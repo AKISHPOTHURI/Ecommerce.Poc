@@ -15,7 +15,6 @@ export class UserService {
   userSignUp(user:signUp) {
     this.http.post("http://localhost:3000/users",user,{observe:'response'})
     .subscribe((result) => {
-      console.warn(result)
       if (result) {
         localStorage.setItem('user', JSON.stringify(result.body));
         this.router.navigate(['/'])
@@ -36,6 +35,7 @@ export class UserService {
       if (result && result.body && result.body.length) {
         localStorage.setItem('user', JSON.stringify(result.body[0]));
         this.router.navigate(['/'])
+        this.invalidUserAuth.emit(false);
       } else {
         this.invalidUserAuth.emit(true);
       }

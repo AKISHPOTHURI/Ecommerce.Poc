@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { product } from '../data-types';
+import { cart, product } from '../data-types';
 import { EventEmitter } from '@angular/core';
 
 @Injectable({
@@ -46,14 +46,28 @@ export class ProductService {
     let localCart = localStorage.getItem('localCart');
     if(!localCart) {
       localStorage.setItem('localCart', JSON.stringify([data]))
-      console .log("first addition to cart")
     } else {
       cartData = JSON.parse(localCart);
       cartData.push(data);
       localStorage.setItem('localCart', JSON.stringify(cartData))
-      console.log("second addition to cart")
     }
     this.cartData.emit(cartData);
     console.log(cartData)
   }
+
+  removeItemFromCart(productId:number) {
+    let cartData = localStorage.getItem('localCart');
+    if(cartData) {
+      let items:product[] = JSON.parse(cartData);
+      items = items.filter((item:product) => productId!==item.id);
+      localStorage.setItem('localCart',JSON.stringify(items));
+      this.cartData.emit(items);
+    }
+  }
+
+  addToCart(cartData:cart) {
+    console.log(cartData)
+    return this.http.post('http://localhost:3000/cart',cartData)
+  }
+
 }

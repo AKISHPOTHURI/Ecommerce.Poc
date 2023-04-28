@@ -13,7 +13,8 @@
             </div>
             <h6>Category: {{productData.productCategory}}</h6>
             <h6>Description: {{productData.productDescription}}</h6>
-            <button (click)="addToCart()">Add to Cart</button>
+            <button *ngIf="!removeCart" (click)="addToCart()">Add to Cart</button>
+            <button *ngIf="removeCart" (click)="removeToCart(productData.id)">Remove from Cart</button>
             <button class="mx-1">Buy Now</button>
             <div class="quantity-group my-1">
                 <button (click)="handleQuantity('min')">-</button>
