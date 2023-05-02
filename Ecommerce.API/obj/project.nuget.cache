@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hZ06pg0qd/yWf8UAp/BqvOHiXNsv5zIXfCU4egiEe691hOE5bdFPiA1D52XBuZiUAdiH8wdm5x4h5eQhE1l/UA==",
+  "dgSpecHash": "vk+xAUguLgHI7e0LIqGsJI+ib5vkuou1SDGDHqTYISZ0J6sNsTdvXCeiCfi97Kj/GsinEzpByugPrXybNT4Jng==",
   "success": true,
-  "projectFilePath": "C:\\Users\\akish.pothuri\\Ecommerce\\Ecommerce.Api\\Ecommerce.Api.csproj",
+  "projectFilePath": "C:\\Users\\akish.pothuri\\Ecommerce.Poc\\Ecommerce.API\\Ecommerce.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\akish.pothuri\\.nuget\\packages\\mailkit\\3.2.0\\mailkit.3.2.0.nupkg.sha512",
     "C:\\Users\\akish.pothuri\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
