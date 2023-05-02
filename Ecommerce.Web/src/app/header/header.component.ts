@@ -59,6 +59,7 @@ export class HeaderComponent implements OnInit {
   userLogOut(): void {
     localStorage.removeItem('user');
     this.router.navigate(['/userauth'])
+    this.product.cartData.emit([])
   }
 
   searchProduct(query:KeyboardEvent) {

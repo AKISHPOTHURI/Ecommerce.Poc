@@ -1,6 +1,6 @@
 <div class="bg-info">
     <nav class="navbar navbar-expand mx-2">
-        <div class="navbar-collapse">
+        <div class=" navbar-collapse">
             <a routerLink="/" class="navbar-brand">ECOM</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
@@ -8,7 +8,7 @@
                 </li>
             </ul>
         </div>
-        <div *ngIf="menuType==='default'" class="mx-5">
+        <div *ngIf="menuType==='default'" class=" mx-5">
             <form class="">
                 <input #searchInput class="px-1" type="text" placeholder="search for the products" (keyup)="searchProduct($event)" (blur)="hideSearch()">
                 <button class="" (click)="search(searchInput.value)">search</button>
@@ -19,7 +19,7 @@
                 </ul>
             </form>
         </div>
-        <div [ngSwitch]="menuType">
+        <div [ngSwitch]="menuType" >
             <ul *ngSwitchCase="'default'" class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" routerLink="sellerlogin">Seller Login</a>
@@ -63,5 +63,6 @@
                 </li>
             </ul>
         </div>
-      </nav>
+    </nav>
+
 </div>

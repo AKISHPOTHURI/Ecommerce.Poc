@@ -45,14 +45,14 @@ export class ProductService {
     let cartData = [];
     let localCart = localStorage.getItem('localCart');
     if(!localCart) {
-      localStorage.setItem('localCart', JSON.stringify([data]))
+      localStorage.setItem('localCart', JSON.stringify([data]));
+      this.cartData.emit([data]);
     } else {
       cartData = JSON.parse(localCart);
       cartData.push(data);
-      localStorage.setItem('localCart', JSON.stringify(cartData))
+      localStorage.setItem('localCart', JSON.stringify(cartData));
+      this.cartData.emit(cartData);
     }
-    this.cartData.emit(cartData);
-    console.log(cartData)
   }
 
   removeItemFromCart(productId:number) {
@@ -68,6 +68,16 @@ export class ProductService {
   addToCart(cartData:cart) {
     console.log(cartData)
     return this.http.post('http://localhost:3000/cart',cartData)
+  }
+
+  getCartList(userId:number) {
+    return this.http.get<product[]>('http://localhost:3000/cart?userId='+userId,{observe:'response'})
+    .subscribe((result) => {
+      console.log(result)
+      if (result && result.body){
+        this.cartData.emit(result.body)
+      }
+    })
   }
 
 }
