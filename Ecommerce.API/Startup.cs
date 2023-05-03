@@ -37,6 +37,7 @@ namespace Ecommerce.Api
                     Description = "Web API Services"
                 }) ;
             });
+            services.AddCors();
             services.AddScoped<IEmailService, EmailService>();
         }
 
@@ -57,6 +58,8 @@ namespace Ecommerce.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ecommerce API V1");
                 //c.RoutePrefix = string.Empty;
             });
+
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
