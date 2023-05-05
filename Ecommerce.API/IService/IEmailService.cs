@@ -8,6 +8,6 @@ namespace Ecommerce.Api.IService
 {
     public interface IEmailService
     {
-        void SendEmail(EmailDTO request);
+        public Task SendEmail(EmailDTO request);
     }
 }
