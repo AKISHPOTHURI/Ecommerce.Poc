@@ -57,5 +57,21 @@ namespace Ecommerce.Api.Repository
                 return "Data Inserted";
             }
         }
+
+        public async Task<bool> RemoveProduct(int id)
+        {
+            var product = await _dbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
+            if (product == null)
+            {
+                return false;
+            }
+            else
+            {
+                _dbContext.Products.Remove(product);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+        }
+
     }
 }

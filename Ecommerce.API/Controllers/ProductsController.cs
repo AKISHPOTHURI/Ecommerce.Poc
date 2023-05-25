@@ -1,5 +1,7 @@
-﻿using Ecommerce.Api.IService;
+﻿using Ecommerce.Api.Authentication;
+using Ecommerce.Api.IService;
 using Ecommerce.Api.ModelDTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +25,7 @@ namespace Ecommerce.Api.Controllers
             _configuration = configuration;
         }
 
+        [Authorize(Roles = UserRoles.Seller+","+UserRoles.User)]
         [HttpPost("InsertProducts")]
         public async Task<IActionResult> InsertProducts([FromQuery]ProductsPostDTO productsPost)
         {
@@ -33,6 +36,16 @@ namespace Ecommerce.Api.Controllers
             }
             return Ok(response);
            
+        }
+        [HttpDelete("DeleteProduct")]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var response = await _productService.RemoveProduct(id);
+            if (!response.IsSucceeded)
+            {
+                return BadRequest(response.GetErrorString());
+            }
+            return Ok(response);
         }
     }
 }

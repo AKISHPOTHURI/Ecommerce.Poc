@@ -9,5 +9,6 @@ namespace Ecommerce.Api.IRepository
     public interface IProductsRepository
     {
         public Task<string> productInsert(ProductsPostDTO productsPost);
+        public Task<bool> RemoveProduct(int id);
     }
 }

@@ -29,5 +29,18 @@
             
 
         }
+
+        public async Task<Result<bool>> RemoveProduct(int id)
+        {
+            try
+            {
+                var response = await _productsRepository.RemoveProduct(id);
+                return Result.Ok(response);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

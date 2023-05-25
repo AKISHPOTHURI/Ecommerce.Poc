@@ -9,5 +9,6 @@
     public interface IProductsService
     {
         public Task<Result<string>> productInsert(ProductsPostDTO productsPost);
+        public Task<Result<bool>> RemoveProduct(int id);
     }
 }
