@@ -1,16 +1,16 @@
-﻿namespace Ecommerce.Api.Service
-{
-    using Ecommerce.Api.Authentication;
-    using Ecommerce.Api.IRepository;
-    using Ecommerce.Api.IService;
-    using Ecommerce.Api.Middleware;
-    using Ecommerce.Api.Model;
-    using Ecommerce.Api.ModelDTO;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+﻿using Ecommerce.Api.Authentication;
+using Ecommerce.Api.IRepository;
+using Ecommerce.Api.IService;
+using Ecommerce.Api.Middleware;
+using Ecommerce.Api.Model;
+using Ecommerce.Api.ModelDTO;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
+namespace Ecommerce.Api.Service
+{
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;

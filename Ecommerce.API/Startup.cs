@@ -91,9 +91,14 @@ namespace Ecommerce.Api
             
 
             services.AddCors();
+            //services
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IProductsService, ProductsService>();
+            //Repository 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IProductsRepository, ProductsRepository>();
+            //Token
             services.AddScoped<ITokenGeneration, TokenGeneration>();
         }
 

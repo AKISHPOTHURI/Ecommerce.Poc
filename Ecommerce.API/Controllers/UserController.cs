@@ -34,7 +34,7 @@ namespace Ecommerce.Api.Controllers
             try
             {
                 var response = await _userService.Login(userSellerLogin);
-                return Ok(response.Token);
+                return Ok(response);
             }
             catch(Exception ex)
             {
