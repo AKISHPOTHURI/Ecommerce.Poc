@@ -1,5 +1,5 @@
 ﻿using Ecommerce.Api.IService;
-using Ecommerce.Api.Models;
+using Ecommerce.Api.ModelDTO;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +23,7 @@ namespace Ecommerce.Api.Service
             _config = config.GetSection("SMTPConfig");
         }
 
-        public async Task SendEmail(EmailDTO request)
+        public async Task<Result> SendEmail(EmailDTO request)
         {
             //var email = new MimeMessage();
             //email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
@@ -39,12 +39,11 @@ namespace Ecommerce.Api.Service
             MailMessage mail = new MailMessage()
             {
                 Subject = "Hurrah",
-                Body = "Your was placed successfully",
+                Body = "Your order was placed successfully,Keep Smiling.",
                 From = new MailAddress(_config.GetSection("SenderAddress").Value,_config.GetSection("SenderDisplayName").Value),
                 IsBodyHtml = Convert.ToBoolean(_config.GetSection("IsBodyHTML").Value)    
             };
-            mail.To.Add(request.email);
-            NetworkCredential networkCredential = new NetworkCredential(_config.GetSection("UserName").Value,_config.GetSection("Password").Value);
+            NetworkCredential networkCredential = new NetworkCredential(_config.GetSection("UserName").Value, _config.GetSection("Password").Value);
             System.Net.Mail.SmtpClient smtpClient = new System.Net.Mail.SmtpClient
             {
                 Host = _config.GetSection("Host").Value,
@@ -53,7 +52,17 @@ namespace Ecommerce.Api.Service
                 UseDefaultCredentials = Convert.ToBoolean(_config.GetSection("UserDefaultCredentials").Value),
                 Credentials = networkCredential
             };
-            await smtpClient.SendMailAsync(mail);
+            try
+            {
+                mail.To.Add(request.email);
+                await smtpClient.SendMailAsync(mail);
+                return Result.Ok();
+            }
+            catch(Exception ex)
+            {
+                //Console.WriteLine("something wrong");
+                return Result.Fail(ex.Message);
+            }
         }
     }
 }

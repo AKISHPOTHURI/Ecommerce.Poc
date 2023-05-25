@@ -1,4 +1,4 @@
-﻿using Ecommerce.Api.Models;
+﻿using Ecommerce.Api.ModelDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +8,6 @@ namespace Ecommerce.Api.IService
 {
     public interface IEmailService
     {
-        public Task SendEmail(EmailDTO request);
+        public Task<Result> SendEmail(EmailDTO request);
     }
 }

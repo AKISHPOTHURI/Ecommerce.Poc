@@ -1,16 +1,16 @@
-﻿namespace Ecommerce.Api.Controllers
-{
-    using Ecommerce.Api.IService;
-    using Ecommerce.Api.Models;
-    using MailKit.Net.Smtp;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using MimeKit;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+﻿using Ecommerce.Api.IService;
+using Ecommerce.Api.ModelDTO;
+using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using MimeKit;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
+namespace Ecommerce.Api.Controllers
+{
     [Route("api/[controller]")]
     [ApiController]
     public class NotificationController : ControllerBase
@@ -21,10 +21,15 @@
             _emailService = emailService;
         }
         [HttpPost]
-        public IActionResult SendEmail(EmailDTO emailDTO)
+        public async Task<IActionResult> SendEmail(EmailDTO emailDTO)
         {
-            _emailService.SendEmail(emailDTO);
-            return Ok();
+            var response = await _emailService.SendEmail(emailDTO);
+
+            if (!response.IsSucceeded)
+            {
+                return BadRequest("Please check the mail");
+            }
+            return Ok("Email sent Successfully");
         }
     }
 }
