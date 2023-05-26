@@ -7,6 +7,6 @@
 
     public interface ITokenGeneration
     {
-        public Task<string> GenerateJwt(int userId, string userName, string email, int role);
+        public Task<string> GenerateJwt(int userId, string userName, string email, string role);
     }
 }

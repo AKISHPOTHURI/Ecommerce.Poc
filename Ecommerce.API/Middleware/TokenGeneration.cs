@@ -17,7 +17,7 @@
         {
             _configuration = configuration;
         }
-        public async Task<string> GenerateJwt(int userId,string userName, string email, int role)
+        public async Task<string> GenerateJwt(int userId,string userName, string email, string role)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);

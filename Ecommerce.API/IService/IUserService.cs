@@ -11,6 +11,9 @@ namespace Ecommerce.Api.IService
     public interface IUserService
     {
         public Task<Response> Login(UserSellerLogin userSellerLogin);
-        
+
+        public Task<Result<string>> RegisterUser(UserSellerRegistration userSellerRegistration);
+
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Ecommerce.Api.Authentication;
 using Ecommerce.Api.IService;
 using Ecommerce.Api.Middleware;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,7 @@ namespace Ecommerce.Api.Controllers
     
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -40,6 +42,17 @@ namespace Ecommerce.Api.Controllers
             {
                 throw new Exception(ex.Message);
             }           
+        }
+
+        [HttpPost("Registration")]
+        public async Task<IActionResult> Registration(UserSellerRegistration userSellerRegistration)
+        {
+            var response = await _userService.RegisterUser(userSellerRegistration);
+            if (!response.IsSucceeded)
+            {
+                return BadRequest(response.GetErrorString());
+            }
+            return Ok(response);
         }
     }
 }

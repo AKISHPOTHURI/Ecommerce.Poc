@@ -14,6 +14,7 @@ namespace Ecommerce.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
     public class ProductsController : ControllerBase
     {
         private readonly IProductsService _productService;
@@ -25,7 +26,7 @@ namespace Ecommerce.Api.Controllers
             _configuration = configuration;
         }
 
-        [Authorize(Roles = UserRoles.Seller+","+UserRoles.User)]
+        [Authorize(Roles = UserRoles.Seller)]
         [HttpPost("InsertProducts")]
         public async Task<IActionResult> InsertProducts([FromQuery]ProductsPostDTO productsPost)
         {
@@ -37,6 +38,8 @@ namespace Ecommerce.Api.Controllers
             return Ok(response);
            
         }
+
+        [Authorize(Roles = UserRoles.Seller)]
         [HttpDelete("DeleteProduct")]
         public async Task<IActionResult> DeleteProduct(int id)
         {

@@ -11,5 +11,6 @@
     public interface IUserRepository
     {
         public Task<Response> Login(UserSellerLogin userSellerLogin);
+        public Task<string> RegisterUser(UserSellerRegistration userSellerRegistration);
     }
 }

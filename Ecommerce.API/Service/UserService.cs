@@ -26,10 +26,24 @@ namespace Ecommerce.Api.Service
             try
             {
                 var result = await _userRepository.Login(userSellerLogin);
-                result.Token = await _tokenGeneration.GenerateJwt(result.data.id,result.data.userName,result.data.email,result.data.role);
+                result.Token ="Bearer "+ await _tokenGeneration.GenerateJwt(result.data.id,result.data.userName,result.data.email,result.data.role);
                 return result;
             }
             catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<Result<string>> RegisterUser(UserSellerRegistration userSellerRegistration)
+        {
+            try
+            {
+                var response = await _userRepository.RegisterUser(userSellerRegistration);
+                
+                return Result.Ok(response);
+            }
+            catch(Exception ex)
             {
                 throw new Exception(ex.Message);
             }

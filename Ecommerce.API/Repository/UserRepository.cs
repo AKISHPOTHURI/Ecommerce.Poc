@@ -31,24 +31,36 @@ namespace Ecommerce.Api.Repository
 
         public async Task<Response> Login(UserSellerLogin userSellerLogin)
         {
-            var user = await _dbContext.Users.Where(d => d.Email == userSellerLogin.email && d.Password == userSellerLogin.password)
+            var currentUser = await _dbContext.Users.Where(d => d.Email == userSellerLogin.email && d.Password == userSellerLogin.password)
                 .FirstOrDefaultAsync();
             try
             {
                 Response response = new Response
                 {
                     IsSuccess = true,
-                    Message = "login sucesscefull",
+                    Message = "Token Generated",
                     data = new userdata
                     {
-                        id = user.Id,
-                        userName = user.UserName,
-                        email = user.Email,
-                        role = (int)user.Role
+                        id = currentUser.Id,
+                        userName = currentUser.UserName,
+                        email = currentUser.Email,
+                        //role = (int)currentUser.Role                      
                     },
                     Token = ""
-
+                    
                 };
+                if (currentUser.Role == 1)
+                {
+                    response.data.role = "user";
+                }
+                else if(currentUser.Role == 2)
+                {
+                    response.data.role = "seller";
+                }
+                else if(currentUser.Role == 3)
+                {
+                    response.data.role = "admin";
+                }
                 return response;
             }
             catch (Exception ex)
@@ -56,6 +68,21 @@ namespace Ecommerce.Api.Repository
                 throw new Exception(ex.Message);
             }
 
+        }
+
+        public async Task<string> RegisterUser(UserSellerRegistration userSellerRegistration)
+        {
+            var data = new User()
+            {
+                UserName = userSellerRegistration.userName,
+                Email = userSellerRegistration.email,
+                Password = userSellerRegistration.password,
+                Role = userSellerRegistration.role
+            };
+
+            _dbContext.Users.AddAsync(data);
+            await _dbContext.SaveChangesAsync();
+            return "Registration is Successfull";
         }
     }
 }
