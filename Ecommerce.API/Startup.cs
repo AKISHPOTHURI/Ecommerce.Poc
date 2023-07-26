@@ -1,4 +1,6 @@
+using AspNet.Security.OAuth.Validation;
 using Ecommerce.Api.Authentication;
+using Ecommerce.Api.Common.Mapper;
 using Ecommerce.Api.IRepository;
 using Ecommerce.Api.IService;
 using Ecommerce.Api.Middleware;
@@ -31,31 +33,36 @@ namespace Ecommerce.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    );
+            services.AddHttpContextAccessor();
             services.AddDbContext<EcommerceContext>(options => options.UseSqlServer(
             Configuration.GetConnectionString("Ecommerce")));
 
             var key = Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]);
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = false;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                };
-            });
+            //services.AddAuthentication(x =>
+            //{
+            //    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            //}).AddJwtBearer(x =>
+            //{
+            //    x.RequireHttpsMetadata = false;
+            //    x.SaveToken = false;
+            //    x.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuerSigningKey = true,
+            //        IssuerSigningKey = new SymmetricSecurityKey(key),
+            //        ValidateIssuer = false,
+            //        ValidateAudience = false,
+            //    };
+            //});
+            services.AddAuthentication(OAuthValidationDefaults.AuthenticationScheme)
+                    .AddOAuthValidation();
 
-
-            services.AddSwaggerGen(c => 
+            services.AddAutoMapper(typeof(ApplicationMapper));
+            services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
@@ -88,16 +95,18 @@ namespace Ecommerce.Api
                      });
 
             });
-            
+
 
             services.AddCors();
             //services
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductsService, ProductsService>();
+            services.AddScoped<ICartService, CartService>();
             //Repository 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IProductsRepository, ProductsRepository>();
+            services.AddScoped<ICartRepository, CartRepository>();
             //Token
             services.AddScoped<ITokenGeneration, TokenGeneration>();
         }
@@ -129,7 +138,7 @@ namespace Ecommerce.Api
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -1,8 +1,4 @@
 ﻿using System;
-using DocumentFormat.OpenXml.Spreadsheet;
-using Ecommerce.Api.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -24,6 +20,7 @@ namespace Ecommerce.Api.Model
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Colour> Colours { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -33,7 +30,7 @@ namespace Ecommerce.Api.Model
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=GGKU4DELL1254;Database=Ecommerce;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=GGKU4DELL1254;Database=Ecommerce;Trusted_Connection=True;Encrypt=false;");
             }
         }
 
@@ -80,6 +77,27 @@ namespace Ecommerce.Api.Model
                     .IsRequired()
                     .HasMaxLength(10)
                     .HasColumnName("Colour");
+            });
+
+            modelBuilder.Entity<Department>(entity =>
+            {
+                entity.HasKey(e => e.DeptId)
+                    .HasName("PK__Departme__0148818EE9B40087");
+
+                entity.ToTable("Department");
+
+                entity.Property(e => e.DeptId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("DeptID");
+
+                entity.Property(e => e.DeptName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ManagerId).HasColumnName("ManagerID");
+
+                entity.Property(e => e.ParentDeptId).HasColumnName("ParentDeptID");
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -150,6 +168,7 @@ namespace Ecommerce.Api.Model
                     .HasForeignKey(d => d.Role)
                     .HasConstraintName("FK_Users_roles");
             });
+
             OnModelCreatingPartial(modelBuilder);
         }
 

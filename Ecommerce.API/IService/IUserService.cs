@@ -1,5 +1,5 @@
 ﻿using Ecommerce.Api.Authentication;
-using Ecommerce.Api.Model;
+//using Ecommerce.Api.Model;
 using Ecommerce.Api.ModelDTO;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace Ecommerce.Api.IService
 {
     public interface IUserService
     {
-        public Task<Response> Login(UserSellerLogin userSellerLogin);
+        public Task<Result<Response>> Login(UserSellerLogin userSellerLogin);
 
         public Task<Result<string>> RegisterUser(UserSellerRegistration userSellerRegistration);
 

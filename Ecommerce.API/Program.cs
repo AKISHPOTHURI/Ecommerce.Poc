@@ -4,6 +4,7 @@ namespace Ecommerce.Api
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
+    using Serilog;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -21,6 +22,11 @@ namespace Ecommerce.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                })
+                .UseSerilog((hostingContext, LoggerConfiguration) =>
+                {
+                    LoggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration);
                 });
+
     }
 }

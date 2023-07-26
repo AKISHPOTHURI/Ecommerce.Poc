@@ -10,7 +10,6 @@ using System.Text;
  
 
 namespace Ecommerce.Api.ModelDTO
-
 {
 
     public class Result<T> : Result

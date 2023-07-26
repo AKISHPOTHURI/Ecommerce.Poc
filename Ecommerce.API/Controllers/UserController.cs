@@ -1,6 +1,5 @@
 ﻿using Ecommerce.Api.Authentication;
 using Ecommerce.Api.IService;
-using Ecommerce.Api.Middleware;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,15 +32,13 @@ namespace Ecommerce.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Token([FromQuery] UserSellerLogin userSellerLogin)
         {
-            try
-            {
                 var response = await _userService.Login(userSellerLogin);
-                return Ok(response);
-            }
-            catch(Exception ex)
+            if (!response.IsSucceeded)
             {
-                throw new Exception(ex.Message);
-            }           
+                return BadRequest(response.GetErrorString());
+            }
+                return Ok(response);
+         
         }
 
         [HttpPost("Registration")]

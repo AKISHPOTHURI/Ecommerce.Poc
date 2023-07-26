@@ -20,9 +20,9 @@ namespace Ecommerce.Api.Repository
     public class UserRepository : IUserRepository
     {
         protected readonly EcommerceContext _dbContext;
-        
+
         public IConfiguration _configuration { get; }
-        public UserRepository(EcommerceContext dbContext,IConfiguration configuration)
+        public UserRepository(EcommerceContext dbContext, IConfiguration configuration)
         {
             _dbContext = dbContext;
             _configuration = configuration;
@@ -33,7 +33,7 @@ namespace Ecommerce.Api.Repository
         {
             var currentUser = await _dbContext.Users.Where(d => d.Email == userSellerLogin.email && d.Password == userSellerLogin.password)
                 .FirstOrDefaultAsync();
-            try
+            if(currentUser != null)
             {
                 Response response = new Response
                 {
@@ -47,27 +47,30 @@ namespace Ecommerce.Api.Repository
                         //role = (int)currentUser.Role                      
                     },
                     Token = ""
-                    
+
                 };
                 if (currentUser.Role == 1)
                 {
-                    response.data.role = "user";
+                    response.data.role = UserRoles.User;
                 }
-                else if(currentUser.Role == 2)
+                else if (currentUser.Role == 2)
                 {
-                    response.data.role = "seller";
+                    response.data.role = UserRoles.Seller;
                 }
-                else if(currentUser.Role == 3)
+                else if (currentUser.Role == 3)
                 {
-                    response.data.role = "admin";
+                    response.data.role = UserRoles.Admin;
+                }
+                else if (currentUser.Role == 4)
+                {
+                    response.data.role = UserRoles.Guest;
                 }
                 return response;
             }
-            catch (Exception ex)
+            else
             {
-                throw new Exception(ex.Message);
+                throw new Exception("data not found");
             }
-
         }
 
         public async Task<string> RegisterUser(UserSellerRegistration userSellerRegistration)
